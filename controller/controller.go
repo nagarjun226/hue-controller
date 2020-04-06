@@ -55,6 +55,9 @@ var Controllers struct {
 	ConSet bool // Let other packages know if the controllers were set
 }
 
+// CONTROLLERUPDATETIME - Interval for controller update Chron job
+const CONTROLLERUPDATETIME int = 10
+
 // CreateControllersFromConfig - Look through the config and create a separate controller for each bridge connection
 func CreateControllersFromConfig() (errMsg error) {
 	config.Config.Lock()
@@ -152,7 +155,7 @@ func init() {
 }
 
 // Method that keeps the controller details up to date with the sources of truth
-// This is unsafe
+// This is an UNSAFE operation
 // Lights - updated from the HueBridge API
 // Registry details - updated from device registry
 func (con *HueControllerT) update() error {
@@ -178,7 +181,7 @@ func (con *HueControllerT) update() error {
 // Chron job that updates the controllers every 30s
 func updateControllersChron() {
 	for {
-		time.Sleep(time.Duration(3) * time.Second)
+		time.Sleep(time.Duration(CONTROLLERUPDATETIME) * time.Second)
 
 		if !Controllers.ConSet {
 			CreateControllersFromConfig()

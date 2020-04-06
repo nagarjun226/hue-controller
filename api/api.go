@@ -21,5 +21,7 @@ func (api *API) Router() *mux.Router {
 	r.HandleFunc("/api/controllers", controller.ListControllersEP).Methods("GET")
 	r.HandleFunc("/api/{bridge}/lights", controller.GetBridgeLights).Methods("GET")
 	r.HandleFunc("/api/{bridge}/lights/{light_id}", controller.GetBridgeLight).Methods("GET")
+	r.HandleFunc("/api/{bridge}/lights/{light_id}/state", controller.GetLightState).Methods("GET")
+	r.HandleFunc("/api/{bridge}/lights/{light_id}/state", controller.PutLightState).Methods("PUT")
 	return r
 }

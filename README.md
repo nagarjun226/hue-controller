@@ -64,18 +64,21 @@ variable `bridge` is the human name of the HueBridge
 - `400, Bad Request` on Bridge not found
 - `200, OK` on success
 ```json
-[
-    {
-        "state": {
-            "On": `bool`,
-            "Brightness": `uint8`
+{
+    [
+        {
+            "state": {
+                "On": `bool`,
+                "bri": `uint8`
+            },
+            "id": "" `string`
         },
-        "id": "" `string`
-    },
-    .
-    .
-    .
-]
+        .
+        .
+        .
+    ]
+}
+
 ```
 
 ### Get the details of a light
@@ -94,9 +97,56 @@ varaiable `light_id` is the id of the light associated with the HueBridge
 {
     "state": {
         "On": `bool`,
-        "Brightness": `uint8`
+        "bri": `uint8`
     },
     "id": "" `string`
+}
+```
+
+### Get the state of a light
+
+**Definition**
+
+`GET /api/{bridge: string}/lights/{light_id: string}/state`
+variable `bridge` is the human name of the HueBridge
+varaiable `light_id` is the id of the light associated with the HueBridge
+
+**Responses**
+
+- `400, Bad Request` on Bridge/Light not found
+- `200, OK` on Success
+```json
+{
+    "On": `bool`,
+    "bri": `uint8`
+}
+```
+
+### Set the state of a light
+
+**Definition**
+
+`PUT /api/{bridge: string}/lights/{light_id: string}/state`
+variable `bridge` is the human name of the HueBridge
+varaiable `light_id` is the id of the light associated with the HueBridge
+
+**Request**
+```json
+{
+    "On": `bool`,
+    "bri": `uint8`
+}
+```
+
+**Responses**
+
+- `400, Bad Request` on Bridge/Light not found
+- `500, Internal Server Error`
+- `200, OK` on Success
+```json
+{
+    "On": `bool`,
+    "bri": `uint8`
 }
 ```
 
